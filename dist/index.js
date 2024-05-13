@@ -468,8 +468,8 @@ class StackCLI {
         return stdout;
     }
     async exec(args, options) {
-        var chcp = process.platform === 'win32' ? "chcp.com 65001 && " : "";
-        return await exec.exec("bash", ["-c", [`${chcp} stack`].concat(this.globalArgs).concat(args).join(" ")], options);
+        var chcp = process.platform === 'win32' ? "chcp 65001 && " : "";
+        return await exec.exec(`${chcp} stack`, this.globalArgs.concat(args), options);
     }
 }
 exports.StackCLI = StackCLI;
