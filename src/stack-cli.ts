@@ -107,6 +107,7 @@ export class StackCLI {
   }
 
   private async exec(args: string[], options?: ExecOptions): Promise<number> {
-    return await exec.exec("stack", this.globalArgs.concat(args), options);
+    var chcp = process.platform === 'win32' ? "chcp.com 65001 && " : ""
+    return await exec.exec("bash", ["-c", [`${chcp} stack`].concat(this.globalArgs).concat(args).join(" ")], options);
   }
 }
