@@ -107,7 +107,8 @@ export class StackCLI {
   }
 
   private async exec(args: string[], options?: ExecOptions): Promise<number> {
-    var chcp = process.platform === 'win32' ? "chcp 65001 && " : ""
+    // https://stackoverflow.com/a/59635209
+    var chcp = process.platform === 'win32' ? "cmd /c chcp 65001>nul && " : ""
     return await exec.exec(`${chcp} stack`, this.globalArgs.concat(args), options);
   }
 }
