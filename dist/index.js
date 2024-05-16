@@ -468,7 +468,7 @@ class StackCLI {
         return stdout;
     }
     async exec(args, options) {
-        var chcp = process.platform === 'win32' ? "cmd /c chcp 65001>nul && " : "";
+        var chcp = process.platform === 'win32' ? "cmd /c chcp && " : "";
         return await exec.exec(`${chcp} stack`, this.globalArgs.concat(args), options);
     }
 }
