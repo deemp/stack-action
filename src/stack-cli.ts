@@ -70,7 +70,7 @@ export class StackCLI {
   }
 
   async build(args: string[]): Promise<number> {
-    return await this.exec(["build"].concat(args));
+    return await this.exec(["build"].concat(args), undefined, true);
   }
 
   async path(): Promise<StackPath> {
@@ -106,9 +106,9 @@ export class StackCLI {
     return stdout;
   }
 
-  private async exec(args: string[], options?: ExecOptions): Promise<number> {
+  private async exec(args: string[], options?: ExecOptions, doChcp: boolean = false, ): Promise<number> {
     // https://stackoverflow.com/a/59635209
     var chcp = process.platform === 'win32' ? "cmd /c chcp && " : ""
-    return await exec.exec(`${chcp} stack`, this.globalArgs.concat(args), options);
+    return await exec.exec(`${doChcp ? chcp : ""} stack`, this.globalArgs.concat(args), options);
   }
 }

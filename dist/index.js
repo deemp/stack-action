@@ -440,7 +440,7 @@ class StackCLI {
         return await this.build(["--test"].concat(args));
     }
     async build(args) {
-        return await this.exec(["build"].concat(args));
+        return await this.exec(["build"].concat(args), undefined, true);
     }
     async path() {
         return await this.parse(["path"], parse_stack_path_1.parseStackPath);
@@ -467,9 +467,9 @@ class StackCLI {
         await this.exec(args, options);
         return stdout;
     }
-    async exec(args, options) {
+    async exec(args, options, doChcp = false) {
         var chcp = process.platform === 'win32' ? "cmd /c chcp && " : "";
-        return await exec.exec(`${chcp} stack`, this.globalArgs.concat(args), options);
+        return await exec.exec(`${doChcp ? chcp : ""} stack`, this.globalArgs.concat(args), options);
     }
 }
 exports.StackCLI = StackCLI;
